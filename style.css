@@ -5,7 +5,7 @@ html {
 
 
 body{
-    background-color: bisque;
+    background-color: rgb(185, 163, 136);
     padding: 0;
     margin: 0;
     display: flex;
@@ -18,13 +18,13 @@ body{
     flex-direction: column;
     justify-content: center;
     margin-top: 100px;
-    max-width: 250px;
+    max-width: 330px;
     padding: 5px;
 }
 
 #screen{
-    min-width: 120px;
-    min-height: 100px;
+    min-width: 320px;
+    min-height: 140px;
     background-color: aquamarine;
 }
 
@@ -33,5 +33,17 @@ body{
     flex-wrap: wrap;
     justify-content: center;
     margin-top: 15px;
-    gap: 2px;
+    padding-top: 6px;
+    column-gap: 2px;
+    row-gap: 6px;
+    border-top: solid 1px gold;
+}
+
+button{
+    padding: 10px;
+    background-color: cornflowerblue;
+}
+
+#buttons > .operator{
+    background-color: cornsilk;
 }
