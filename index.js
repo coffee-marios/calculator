@@ -17,6 +17,8 @@ let hold = "0";
 let operation = "start";
 let add = 0;
 let subtract = 0;
+let multiply = 1;
+let divide = 1;
 let appear = ""; 
 let outcome = 0;
 let registerOperator = false;
@@ -90,7 +92,55 @@ function clickNumber(e) {
             console.log(33, digitsNumber, `delete: ${subtract}, hold: ${hold} `);
             } 
 } 
-    
+if (operation === "multiply"){
+    console.log(33, digitsNumber, `multiply: ${multiply}, hold: ${hold} `);
+
+    if (digitsNumber === ""){
+        
+        multiply *= Number(gotNumber);
+        outcome = Number(hold) * Number(multiply);
+        
+        digitsNumber = gotNumber;
+        appear = appear + digitsNumber;
+        console.log(33, digitsNumber, `multiply: ${multiply}, hold: ${hold} `);
+    } else if (digitsNumber !== ""){
+        digitsNumber += gotNumber;
+        multiply = digitsNumber;
+        outcome = Number(hold) * Number(multiply);
+
+
+        appear += gotNumber;
+        
+
+        console.log(33, digitsNumber, `multiply: ${multiply}, hold: ${hold} `);
+        } 
+} 
+
+if (operation === "divide"){
+    console.log(33, digitsNumber, `divide: ${divide}, hold: ${hold} `);
+
+    if (digitsNumber === ""){
+        
+        divide *= Number(gotNumber);
+        outcome = Number(hold) / Number(divide);
+        
+        digitsNumber = gotNumber;
+        appear = appear + digitsNumber;
+        console.log(33, digitsNumber, `divide: ${divide}, hold: ${hold} `);
+    } else if (digitsNumber !== ""){
+        digitsNumber += gotNumber;
+        multiply = digitsNumber;
+        outcome = Number(hold) / Number(divide);
+
+
+        appear += gotNumber;
+        
+
+        console.log(33, digitsNumber, `divide: ${divide}, hold: ${hold} `);
+        } 
+}
+
+
     
     console.log(`${appear} = ${outcome} `);
     
@@ -129,7 +179,33 @@ function clickOperator(e) {
 
             
         console.log(`${appear}`);
+    } 
+
+    if(e.target.dataset.operator === "multiply"){
+        digitsNumber = "";
+        operation = "multiply";
+        appear += " * ";
+        hold = outcome;
+        multiply = 1;
+        //outcome += Number(hold); 
+
+            
+        console.log(`${appear}`);
     }
+
+    if(e.target.dataset.operator === "divide"){
+        digitsNumber = "";
+        operation = "divide";
+        appear += " / ";
+        hold = outcome;
+        divide = 1;
+        //outcome += Number(hold); 
+
+            
+        console.log(`${appear}`);
+    }
+
+
 
 
     if(e.target.dataset.operator === "equal"){
