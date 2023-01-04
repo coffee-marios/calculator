@@ -1,6 +1,7 @@
 const elementNumbers = document.querySelectorAll("[data-number]");
 const elementOperators = document.querySelectorAll("[data-operator]");
-
+const visual_process = document.querySelector("#visual_process");
+const visual_outcome = document.querySelector("#visual_outcome");
 
 
 elementNumbers.forEach(el=>{
@@ -30,8 +31,8 @@ function clickNumber(e) {
     
     let gotNumber = e.target.dataset.number;
     registerOperator = false;
-    console.log(decimal)
-
+    console.log(decimal);
+    
     // We don't want to have many decimal points
     if (gotNumber === "."){
         decimal += 1; 
@@ -144,14 +145,14 @@ function clickNumber(e) {
                     divide = Number(digitsNumber) * prosimo;
                     appear += gotNumber;
                     } 
-                    outcome = ((Number(hold) * 10) / (Number(divide) *10)) / 100;
+                    outcome = ((Number(hold) * 10) / (Number(divide) *10));
 
             }
 
 
+    visual_process.innerText = appear;
     
-    console.log(`${appear} = ${outcome} `);
-    
+
 }
 
 function clickOperator(e) {
@@ -183,6 +184,8 @@ function clickOperator(e) {
         digitsNumber = "";
         prosimo = 1;
         console.clear();
+        visual_process.innerText = "";
+        visual_outcome.innerText = "";
     }
     if(e.target.dataset.operator === "add" && registerOperator === false){
         digitsNumber = "";
@@ -204,7 +207,7 @@ function clickOperator(e) {
         console.log(`${appear}`);
     } 
 
-    if(e.target.dataset.operator === "multiply"){
+    if(e.target.dataset.operator === "multiply" && registerOperator === false){
         digitsNumber = "";
         operation = "multiply";
         appear += " * ";
@@ -214,7 +217,7 @@ function clickOperator(e) {
         console.log(`${appear}`);
     }
 
-    if(e.target.dataset.operator === "divide"){
+    if(e.target.dataset.operator === "divide" && registerOperator === false){
         digitsNumber = "";
         operation = "divide";
         appear += " / ";
@@ -225,27 +228,26 @@ function clickOperator(e) {
     }
 
     if(e.target.dataset.operator === "equal"){
-        appear = outcome;
-        console.log(appear);
-
-        hold = 0;
+        //appear = outcome;
+        //console.log(appear);
+        visual_outcome.innerText = " = " + outcome;
+        registerOperator = false;
+        /* hold = 0;
         add = 0;
         divide = 0;
         subtract = 0;
         multiply = 0;
-        operation = "start";
-        digitsNumber = "";
+        operation = "start"; */
+        //digitsNumber = "";
+        return;
         
     }
     
 
-    
-
-
-
 
     registerOperator = true;
     console.log(e.target.dataset.operator);
+    visual_process.innerText = appear;
     
 }
 

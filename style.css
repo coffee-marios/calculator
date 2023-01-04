@@ -23,9 +23,13 @@ body{
 }
 
 #screen{
-    min-width: 320px;
+    /* min-width: 320px; */
+    /* margin-left: 40%;
+    margin-right: 40%; */
     min-height: 140px;
     background-color: aquamarine;
+    text-align: right;
+    padding: 8px; 
 }
 
 #buttons{
