@@ -3,6 +3,9 @@ const elementOperators = document.querySelectorAll("[data-operator]");
 const visual_process = document.querySelector("#visual_process");
 const visual_outcome = document.querySelector("#visual_outcome");
 
+const reduceChar = document.querySelector("[data-reduce='delete']");
+
+const myOperators = ["+", "-", "/", "*"];
 
 elementNumbers.forEach(el=>{
     el.addEventListener("click", clickNumber, false);
@@ -11,6 +14,8 @@ elementNumbers.forEach(el=>{
 elementOperators.forEach(el=>{
     el.addEventListener("click", clickOperator, false);
 });
+
+reduceChar.addEventListener("click", deleteChar, false);
 
 
 let digitsNumber = "";
@@ -25,13 +30,37 @@ let outcome = 0;
 let registerOperator = false;
 let prosimo = 1;
 let decimal = 0;
+let myFormula;
 
+function clearEverything(){
+    hold = 0;
+    add = 0;
+    divide = 1;
+    subtract = 0;
+    multiply = 1;
+    outcome = 0;
+    appear = "";
+    operation = "start";
+    digitsNumber = "";
+    prosimo = 1;
+    console.clear();
+    visual_process.innerText = "";
+    visual_outcome.innerText = "";
+}
 
-function clickNumber(e) {
-    
+function clickNumber(e){
     let gotNumber = e.target.dataset.number;
+    console.log(typeof(gotNumber))
+    workNumber(gotNumber);
+    console.log(`outcome :${outcome}`);
+
+}
+
+
+function workNumber(e) {
+    
+    let gotNumber = e;
     registerOperator = false;
-    console.log(decimal);
     
     // We don't want to have many decimal points
     if (gotNumber === "."){
@@ -55,14 +84,15 @@ function clickNumber(e) {
         hold = digitsNumber;
         appear = digitsNumber
         outcome = Number(digitsNumber);
+        console.log(`more numbers, hold: ${hold} `)
     }
     if (operation === "start" && digitsNumber === "") {
         digitsNumber = gotNumber;
         appear = digitsNumber;
         hold = Number(gotNumber);
         outcome = Number(digitsNumber); 
+        console.log('here')
 
-        //hold = Number(e.target.dataset.number);
     } 
 
     /*
@@ -86,7 +116,7 @@ function clickNumber(e) {
             add = digitsNumber;
             appear += gotNumber;
             } 
-            outcome = (Number(hold) * 10 + Number(add) * 10) /10;
+            outcome = (Number(hold) * 100 + Number(add) * 100) /100;
             console.log(33, digitsNumber, `add: ${add}, hold: ${hold} `);
         } 
 
@@ -105,7 +135,7 @@ function clickNumber(e) {
             subtract = digitsNumber * prosimo;
             appear += gotNumber;
             } 
-            outcome = (Number(hold) * 10 - Number(subtract) * 10) /10;
+            outcome = (Number(hold) * 100 - Number(subtract) * 100) /100;
             console.log(33, digitsNumber, `delete: ${subtract}, hold: ${hold} `);
         } 
     
@@ -127,7 +157,7 @@ function clickNumber(e) {
                 appear += gotNumber;
             
                 }
-                outcome = ((Number(hold)*10) * (Number(multiply)*10))/100;
+                outcome = ((Number(hold)*100) * (Number(multiply)*100))/10000;
                 console.log(33, digitsNumber, `multiply: ${multiply}, hold: ${hold} `);
             
             } 
@@ -145,7 +175,7 @@ function clickNumber(e) {
                     divide = Number(digitsNumber) * prosimo;
                     appear += gotNumber;
                     } 
-                    outcome = ((Number(hold) * 10) / (Number(divide) *10));
+                    outcome = ((Number(hold) * 100) / (Number(divide) *100));
 
             }
 
@@ -155,16 +185,23 @@ function clickNumber(e) {
 
 }
 
-function clickOperator(e) {
+function clickOperator(e){
+    gotOperator = e.target.dataset.operator;
+    workOperator(gotOperator);
+}
+
+function workOperator(e) {
+
+    let gotOperator = e;
 
     // We are ready to pass to a new number
     decimal = 0;
 
-    if (e.target.dataset.operator === "subtract" && registerOperator === true){
+    if (gotOperator === "subtract" && registerOperator === true){
         digitsNumber = "";
         appear += " - ";
         prosimo *= -1;
-        console.log(`${appear}`);
+        visual_process.innerText = appear;
         return;
 
     }
@@ -172,83 +209,114 @@ function clickOperator(e) {
     prosimo = 1;
     
 
-    if(e.target.dataset.operator === "clear"){
-        hold = 0;
-        add = 0;
-        divide = 0;
-        subtract = 0;
-        multiply = 0;
-        outcome = 0;
-        appear = "";
-        operation = "start";
-        digitsNumber = "";
-        prosimo = 1;
-        console.clear();
-        visual_process.innerText = "";
-        visual_outcome.innerText = "";
+    if(gotOperator === "clear"){
+        clearEverything();
     }
-    if(e.target.dataset.operator === "add" && registerOperator === false){
+    if(gotOperator === "add" && registerOperator === false){
         digitsNumber = "";
         operation = "add";
         appear += " + ";
         hold = outcome;
         add = 0;
             
-        console.log(`${appear}`);
+        
     }
 
-    if(e.target.dataset.operator === "subtract"){
+    if(gotOperator === "subtract"){
         digitsNumber = "";
         operation = "subtract";
         appear += " - ";
         hold = outcome;
         subtract = 0;
-            
-        console.log(`${appear}`);
+        visual_process.innerText = appear; 
+       
     } 
 
-    if(e.target.dataset.operator === "multiply" && registerOperator === false){
+    if(gotOperator === "multiply" && registerOperator === false){
         digitsNumber = "";
         operation = "multiply";
         appear += " * ";
         hold = outcome;
         multiply = 1;
 
-        console.log(`${appear}`);
+        
     }
 
-    if(e.target.dataset.operator === "divide" && registerOperator === false){
+    if(gotOperator === "divide" && registerOperator === false){
         digitsNumber = "";
         operation = "divide";
         appear += " / ";
         hold = outcome;
         divide = 1;
             
-        console.log(`${appear}`);
-    }
-
-    if(e.target.dataset.operator === "equal"){
-        //appear = outcome;
-        //console.log(appear);
-        visual_outcome.innerText = " = " + outcome;
-        registerOperator = false;
-        /* hold = 0;
-        add = 0;
-        divide = 0;
-        subtract = 0;
-        multiply = 0;
-        operation = "start"; */
-        //digitsNumber = "";
-        return;
         
     }
-    
+
+    if(gotOperator === "equal"){
+        visual_outcome.innerText = " = " + outcome;
+        registerOperator = false;
+        return;
+    }
 
 
     registerOperator = true;
-    console.log(e.target.dataset.operator);
+    //console.log(e.target.dataset.operator);
     visual_process.innerText = appear;
     
+}
+
+
+function deleteChar(){
+    if(appear.length<=1){
+        clearEverything();
+    } else {
+        myFormula = appear.split("");
+        clearEverything()
+        console.log(`appear: ${appear}, myFormula: ${myFormula}, myFormula.length`);
+    
+        if (myFormula[-1] === " "){
+            myFormula.pop();
+        }
+
+        myFormula.pop();
+        let i=0;
+        decimal = 0;
+        for (i; i<myFormula.length; i++){
+            if (myFormula[i] === " "){
+                continue;
+            }
+            if (myOperators.includes(myFormula[i])){
+                if (myFormula[i]==="+"){
+                    workOperator("add");
+                }
+                if (myFormula[i]==="-"){
+                    workOperator("subtract");
+                }
+                if (myFormula[i]==="/"){
+                    workOperator("divide");
+                }
+                if (myFormula[i]==="*"){
+                    workOperator("multiply");
+                }
+                console.log(myFormula[i]);
+            
+            } else{
+                workNumber(myFormula[i]);
+                console.log("outcome:", outcome)
+                
+            }
+            console.log(`character: ${myFormula[i]}`)
+            console.log(`appear: ${appear}, myFormula: ${myFormula}, decimal: ${decimal}`);
+
+        }
+
+
+        appear = myFormula.join("");
+    }
+    console.log(appear, myFormula);
+    visual_process.innerText = appear;
+
+return;
 }
 
 
