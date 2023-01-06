@@ -1,6 +1,8 @@
 
 html {
     box-sizing: border-box;
+    font-size: 100%;
+    line-height: 1;
   }
 
 
@@ -17,29 +19,44 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-top: 100px;
-    max-width: 330px;
+    margin-top: 5%;
+    margin-left: 40%;
+    margin-right: 40%;
     padding: 5px;
 }
 
 #screen{
-    /* min-width: 320px; */
-    /* margin-left: 40%;
-    margin-right: 40%; */
-    min-height: 140px;
+    
+    min-height: 4rem;
     background-color: aquamarine;
     text-align: right;
-    padding: 8px; 
+    padding-top: 0;
+    font-size: 1rem;
+}
+#visual_process{
+    padding: 0.5rem;
+    margin: 0;
+    text-align: left;
+    font-weight: lighter;
+}
+#visual_outcome{
+    padding: 0.5rem;
+    margin: 0;
+    font-weight: 600;
 }
 
+
+
+
+
+
 #buttons{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    justify-items: stretch;
+    gap: 2px;
+    padding-top: 12px;
     margin-top: 15px;
-    padding-top: 6px;
-    column-gap: 2px;
-    row-gap: 6px;
     border-top: solid 1px gold;
 }
 
@@ -49,5 +66,5 @@ button{
 }
 
 #buttons > .operator{
-    background-color: cornsilk;
+    background-color: rgb(184, 155, 41);
 }
