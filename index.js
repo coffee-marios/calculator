@@ -50,9 +50,7 @@ function clearEverything(){
 
 function clickNumber(e){
     let gotNumber = e.target.dataset.number;
-    console.log(typeof(gotNumber))
     workNumber(gotNumber);
-    console.log(`outcome :${outcome}`);
 
 }
 
@@ -117,11 +115,9 @@ function workNumber(e) {
             appear += gotNumber;
             } 
             outcome = (Number(hold) * 100 + Number(add) * 100) /100;
-            console.log(33, digitsNumber, `add: ${add}, hold: ${hold} `);
         } 
 
     if (operation === "subtract"){
-        console.log(33, digitsNumber, `delete: ${subtract}, hold: ${hold} `);
 
         if (digitsNumber === ""){
             
@@ -136,29 +132,23 @@ function workNumber(e) {
             appear += gotNumber;
             } 
             outcome = (Number(hold) * 100 - Number(subtract) * 100) /100;
-            console.log(33, digitsNumber, `delete: ${subtract}, hold: ${hold} `);
         } 
     
         if (operation === "multiply"){
-            console.log(33, digitsNumber, `multiply: ${multiply}, hold: ${hold} `);
 
             if (digitsNumber === ""){
         
                 multiply = multiply * Number(gotNumber) * prosimo;
-                //outcome = ((Number(hold)*10) * (Number(multiply)*10))/100;
-                
                 digitsNumber = gotNumber;
                 appear = appear + digitsNumber;
                 
             } else if (digitsNumber !== ""){
                 digitsNumber += gotNumber;
                 multiply = Number(digitsNumber) * prosimo;
-                //outcome = Number(hold) * Number(multiply);
                 appear += gotNumber;
             
                 }
                 outcome = ((Number(hold)*100) * (Number(multiply)*100))/10000;
-                console.log(33, digitsNumber, `multiply: ${multiply}, hold: ${hold} `);
             
             } 
 
@@ -272,9 +262,11 @@ function deleteChar(){
     } else {
         myFormula = appear.split("");
         clearEverything()
-        console.log(`appear: ${appear}, myFormula: ${myFormula}, myFormula.length`);
+        console.log(`myFormula: ${myFormula}, character: ${myFormula[myFormula.length-1]} `);
     
-        if (myFormula[-1] === " "){
+    
+        if (myFormula[myFormula.length-1] === " "){
+            console.log('ete')
             myFormula.pop();
         }
 
@@ -305,15 +297,13 @@ function deleteChar(){
                 console.log("outcome:", outcome)
                 
             }
-            console.log(`character: ${myFormula[i]}`)
-            console.log(`appear: ${appear}, myFormula: ${myFormula}, decimal: ${decimal}`);
 
         }
 
 
         appear = myFormula.join("");
     }
-    console.log(appear, myFormula);
+
     visual_process.innerText = appear;
 
 return;
