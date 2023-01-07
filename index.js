@@ -5,7 +5,7 @@ const visual_outcome = document.querySelector("#visual_outcome");
 
 const reduceChar = document.querySelector("[data-reduce='delete']");
 
-const myOperators = ["+", "-", "/", "*"];
+const myOperators = ["+", "-", "/", "x"];
 
 elementNumbers.forEach(el=>{
     el.addEventListener("click", clickNumber, false);
@@ -78,18 +78,22 @@ function workNumber(e) {
     
 
      if (appear !== "" && operation === "start"){
+        
+        // if we begin with a negative number
+        if (digitsNumber[0] === "-"){
+            prosimo *= -1;
+        }
+
+        hold = digitsNumber.trim() + gotNumber.trim();
         digitsNumber += gotNumber;
-        hold = digitsNumber;
-        appear = digitsNumber
-        outcome = Number(digitsNumber);
-        console.log(`more numbers, hold: ${hold} `)
+        appear = digitsNumber;
+        outcome = Number(hold);
+        
     }
     if (operation === "start" && digitsNumber === "") {
         digitsNumber = gotNumber;
         appear = digitsNumber;
-        hold = Number(gotNumber);
         outcome = Number(digitsNumber); 
-        console.log('here')
 
     } 
 
@@ -125,11 +129,14 @@ function workNumber(e) {
             
             digitsNumber = gotNumber;
             appear = appear + digitsNumber;
+            console.log(digitsNumber, 90)
+
             
         } else if (digitsNumber !== ""){
             digitsNumber += gotNumber;
             subtract = digitsNumber * prosimo;
             appear += gotNumber;
+            console.log(digitsNumber)
             } 
             outcome = (Number(hold) * 100 - Number(subtract) * 100) /100;
         } 
@@ -187,11 +194,22 @@ function workOperator(e) {
     // We are ready to pass to a new number
     decimal = 0;
 
+    // if we begin with a negative number
+    if(gotOperator === "subtract" && operation==="start" && digitsNumber===""){
+        digitsNumber = "-";
+        appear += " - ";
+        hold = "-";
+        visual_process.innerText = appear;
+        return;
+
+    }
+
     if (gotOperator === "subtract" && registerOperator === true){
         digitsNumber = "";
         appear += " - ";
         prosimo *= -1;
         visual_process.innerText = appear;
+        console.log(digitsNumber, 330)
         return;
 
     }
@@ -219,13 +237,14 @@ function workOperator(e) {
         hold = outcome;
         subtract = 0;
         visual_process.innerText = appear; 
+        console.log(33)
        
     } 
 
     if(gotOperator === "multiply" && registerOperator === false){
         digitsNumber = "";
         operation = "multiply";
-        appear += " * ";
+        appear += " x ";
         hold = outcome;
         multiply = 1;
 
@@ -266,7 +285,6 @@ function deleteChar(){
     
     
         if (myFormula[myFormula.length-1] === " "){
-            console.log('ete')
             myFormula.pop();
         }
 
@@ -287,7 +305,7 @@ function deleteChar(){
                 if (myFormula[i]==="/"){
                     workOperator("divide");
                 }
-                if (myFormula[i]==="*"){
+                if (myFormula[i]==="x"){
                     workOperator("multiply");
                 }
                 console.log(myFormula[i]);
