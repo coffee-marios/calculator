@@ -32,6 +32,22 @@ let prosimo = 1;
 let decimal = 0;
 let myFormula;
 
+// We might not have space for all the numbers and symbols written by the user
+function showOnly(maxSpace=18){
+    if (appear.length<=maxSpace){
+        visual_process.innerText = appear;
+        
+    }
+    
+    if (appear.length > maxSpace){
+        let extraChar = appear.length - maxSpace;
+        let temp = appear.slice(extraChar);
+
+        visual_process.innerText = appear.slice(extraChar);
+    } 
+    
+}
+
 function clearEverything(){
     hold = 0;
     add = 0;
@@ -66,7 +82,6 @@ function workNumber(e) {
  
     } 
     if (decimal >= 2 && gotNumber === ".") {
-            console.log(decimal)
             return;
         }
 
@@ -104,7 +119,6 @@ function workNumber(e) {
     */
    
     if (operation === "add"){
-            console.log(33, digitsNumber, `add: ${add}, hold: ${hold} `);
 
         if (digitsNumber === ""){
             
@@ -118,7 +132,7 @@ function workNumber(e) {
             add = digitsNumber;
             appear += gotNumber;
             } 
-            outcome = (Number(hold) * 100 + Number(add) * 100) /100;
+            outcome = (Number(hold) * 190 + Number(add) * 190) /190;
         } 
 
     if (operation === "subtract"){
@@ -129,7 +143,6 @@ function workNumber(e) {
             
             digitsNumber = gotNumber;
             appear = appear + digitsNumber;
-            console.log(digitsNumber, 90)
 
             
         } else if (digitsNumber !== ""){
@@ -138,7 +151,7 @@ function workNumber(e) {
             appear += gotNumber;
             console.log(digitsNumber)
             } 
-            outcome = (Number(hold) * 100 - Number(subtract) * 100) /100;
+            outcome = (Number(hold) * 190 - Number(subtract) * 190) /190;
         } 
     
         if (operation === "multiply"){
@@ -176,9 +189,8 @@ function workNumber(e) {
 
             }
 
+            showOnly();
 
-    visual_process.innerText = appear;
-    
 
 }
 
@@ -199,7 +211,7 @@ function workOperator(e) {
         digitsNumber = "-";
         appear += " - ";
         hold = "-";
-        visual_process.innerText = appear;
+        showOnly(20);
         return;
 
     }
@@ -208,8 +220,7 @@ function workOperator(e) {
         digitsNumber = "";
         appear += " - ";
         prosimo *= -1;
-        visual_process.innerText = appear;
-        console.log(digitsNumber, 330)
+        showOnly(20);
         return;
 
     }
@@ -236,8 +247,7 @@ function workOperator(e) {
         appear += " - ";
         hold = outcome;
         subtract = 0;
-        visual_process.innerText = appear; 
-        console.log(33)
+        
        
     } 
 
@@ -257,8 +267,6 @@ function workOperator(e) {
         appear += " / ";
         hold = outcome;
         divide = 1;
-            
-        
     }
 
     if(gotOperator === "equal"){
@@ -270,7 +278,7 @@ function workOperator(e) {
 
     registerOperator = true;
     //console.log(e.target.dataset.operator);
-    visual_process.innerText = appear;
+    showOnly(20);
     
 }
 
@@ -308,11 +316,10 @@ function deleteChar(){
                 if (myFormula[i]==="x"){
                     workOperator("multiply");
                 }
-                console.log(myFormula[i]);
+                
             
             } else{
                 workNumber(myFormula[i]);
-                console.log("outcome:", outcome)
                 
             }
 
@@ -322,7 +329,7 @@ function deleteChar(){
         appear = myFormula.join("");
     }
 
-    visual_process.innerText = appear;
+    showOnly();
 
 return;
 }

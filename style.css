@@ -2,7 +2,6 @@
 html {
     box-sizing: border-box;
     font-size: 100%;
-    line-height: 1;
   }
 
 
@@ -15,56 +14,101 @@ body{
 }
 
 #container{
-    background-color: blueviolet;
+    background-color: rgba(0, 0, 0, 0.896);
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-top: 5%;
-    margin-left: 40%;
-    margin-right: 40%;
+    margin-top: 2%;
+    margin-left: 30%;
+    margin-right: 30%;
     padding: 5px;
+    border: solid 0.3rem black;
 }
 
 #screen{
     
-    min-height: 4rem;
+    min-height: 5rem;
     background-color: aquamarine;
     text-align: right;
     padding-top: 0;
     font-size: 1rem;
 }
+
+#upper_side{
+    text-align: left;
+}
+
 #visual_process{
     padding: 0.5rem;
-    margin: 0;
+    padding-right: 2px;
+    margin: auto;
+    color: blue;
     text-align: left;
     font-weight: lighter;
 }
-#visual_outcome{
-    padding: 0.5rem;
-    margin: 0;
-    font-weight: 600;
+
+#underscore{
+    text-align: left;
+    font-weight: 700;
+    padding: 0;
+    animation: flashChar 1.5s infinite;
 }
 
+@keyframes flashChar {
+    from {color: aquamarine;}
+  to {color: blue;}
+  }
 
 
+
+
+
+#visual_outcome{
+    padding: 0 0.5rem 0.5rem 0;
+    margin: 0;
+    color: green;
+}
 
 
 
 #buttons{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: ;
     justify-items: stretch;
-    gap: 2px;
+    gap: 0.5rem;
     padding-top: 12px;
     margin-top: 15px;
     border-top: solid 1px gold;
 }
 
 button{
-    padding: 10px;
-    background-color: cornflowerblue;
+    padding: 1rem;
+    color: white;
+
 }
 
 #buttons > .operator{
-    background-color: rgb(184, 155, 41);
+    background-color: rgb(11, 44, 5);
+}
+
+#buttons > .vis_numbers{
+    background-color: #078f47aa;
+}
+
+#just-a-dot{
+    background-color: rgba(72, 121, 61, 0.181);
+}
+
+#buttons > #danger-clear{
+    background-color: rgba(255, 0, 0, 0.498);
+}
+
+#buttons > #equality_button{
+    background-color: rgba(43, 245, 57, 0.326);
+}
+
+#buttons > #delete_character{
+    background-color: rgba(72, 116, 34, 0.81);
+
 }
