@@ -33,7 +33,7 @@ let decimal = 0;
 let myFormula;
 
 // We might not have space for all the numbers and symbols written by the user
-function showOnly(maxSpace=18){
+function showOnly(maxSpace=22){
     if (appear.length<=maxSpace){
         visual_process.innerText = appear;
         
@@ -132,7 +132,7 @@ function workNumber(e) {
             add = digitsNumber;
             appear += gotNumber;
             } 
-            outcome = (Number(hold) * 190 + Number(add) * 190) /190;
+            outcome = (Number(hold) * 100 + Number(add) * 100) /100;
         } 
 
     if (operation === "subtract"){
@@ -149,9 +149,9 @@ function workNumber(e) {
             digitsNumber += gotNumber;
             subtract = digitsNumber * prosimo;
             appear += gotNumber;
-            console.log(digitsNumber)
+            
             } 
-            outcome = (Number(hold) * 190 - Number(subtract) * 190) /190;
+            outcome = (Number(hold) * 100 - Number(subtract) * 100) /100;
         } 
     
         if (operation === "multiply"){
@@ -209,18 +209,18 @@ function workOperator(e) {
     // if we begin with a negative number
     if(gotOperator === "subtract" && operation==="start" && digitsNumber===""){
         digitsNumber = "-";
-        appear += " - ";
+        appear += "-";
         hold = "-";
-        showOnly(20);
+        showOnly();
         return;
 
     }
 
     if (gotOperator === "subtract" && registerOperator === true){
         digitsNumber = "";
-        appear += " - ";
+        appear += "-";
         prosimo *= -1;
-        showOnly(20);
+        showOnly();
         return;
 
     }
@@ -234,7 +234,7 @@ function workOperator(e) {
     if(gotOperator === "add" && registerOperator === false){
         digitsNumber = "";
         operation = "add";
-        appear += " + ";
+        appear += "+";
         hold = outcome;
         add = 0;
             
@@ -244,7 +244,7 @@ function workOperator(e) {
     if(gotOperator === "subtract"){
         digitsNumber = "";
         operation = "subtract";
-        appear += " - ";
+        appear += "-";
         hold = outcome;
         subtract = 0;
         
@@ -254,7 +254,7 @@ function workOperator(e) {
     if(gotOperator === "multiply" && registerOperator === false){
         digitsNumber = "";
         operation = "multiply";
-        appear += " x ";
+        appear += "x";
         hold = outcome;
         multiply = 1;
 
@@ -264,7 +264,7 @@ function workOperator(e) {
     if(gotOperator === "divide" && registerOperator === false){
         digitsNumber = "";
         operation = "divide";
-        appear += " / ";
+        appear += "/";
         hold = outcome;
         divide = 1;
     }
@@ -277,8 +277,7 @@ function workOperator(e) {
 
 
     registerOperator = true;
-    //console.log(e.target.dataset.operator);
-    showOnly(20);
+    showOnly();
     
 }
 
@@ -289,7 +288,7 @@ function deleteChar(){
     } else {
         myFormula = appear.split("");
         clearEverything()
-        console.log(`myFormula: ${myFormula}, character: ${myFormula[myFormula.length-1]} `);
+        
     
     
         if (myFormula[myFormula.length-1] === " "){

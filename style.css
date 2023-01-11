@@ -51,6 +51,7 @@ body{
     text-align: left;
     font-weight: 700;
     padding: 0;
+    margin-right: 0;
     animation: flashChar 1.5s infinite;
 }
 
